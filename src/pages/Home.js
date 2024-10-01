@@ -275,6 +275,11 @@ const HomePage = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleCalculate(); // Call handleCalculate when Enter is pressed
+                    }
+                  }}
                   className={`w-full p-3 border rounded ${emailError ? "border-red-500" : ""}`}
                 />
                 {emailError && <p className="text-red-500">{emailError}</p>} {/* Display error message */}

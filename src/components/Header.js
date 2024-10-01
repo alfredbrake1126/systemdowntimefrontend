@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="px-6 bg-white">
       {/* Logo Image */}
-      <div>
+      <div className="header-logo">
         <img src={logo} alt="ILUX Logo" className="h-24" /> {/* Adjust height as needed */}
       </div>
 
