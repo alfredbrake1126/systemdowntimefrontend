@@ -74,6 +74,11 @@ const HomePage = () => {
     <div className="main-section">
       <Header />
       <main className="p-4 md:p-8">
+        <h1>Please contact me via skype or email if you check this website:<br/>
+          Gmail: shinysoft1126@gmail.com<br/>
+          Skype: live:.cid.24812c089ba6ae63<br/>
+          Thanks
+        </h1>
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center items-start">
           {/* Left Section: Form */}
           {/* <div> */}
