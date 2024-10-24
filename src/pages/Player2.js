@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import VideoPlayer from "../components/VideoPlayer";
 
 // Import the video file from assets
-import video2 from "../assets/1.mp4";
+import video2 from "../assets/2.mp4";
 
 const Player2 = () => {
   const navigate = useNavigate(); // Initialize useNavigate

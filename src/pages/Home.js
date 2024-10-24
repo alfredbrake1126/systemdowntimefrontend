@@ -8,7 +8,8 @@ const HomePage = () => {
   const { setFormData } = useContext(FormContext); // Use context to get setFormData
   const navigate = useNavigate(); // Initialize useNavigate
   // State for sliders
-  const [employees, setEmployees] = useState(35);
+  const [employees, setEmployees] = useState(0);
+  const [billableEmployees, setBillableEmployees] = useState(0);
   const [salary, setSalary] = useState(106);
   const [daysDown, setDaysDown] = useState(40);
   const [billingType, setBillingType] = useState("annualRevenue");
@@ -43,13 +44,13 @@ const HomePage = () => {
     // Calculate based on selected billing type
     switch (billingType) {
       case "annualRevenue":
-        sum = (((employees * salary) + rate) / 365) * daysDown; // Replace salary with annual revenue
+        sum = ((employees * salary) + rate) / 260 * daysDown; // Replace salary with annual revenue
         break;
       case "dailyBilling":
-        sum = (((employees * salary) / 365) + rate) * daysDown; // daily billing rate
+        sum = ((employees * salary / 260) + (billableEmployees * rate)) * daysDown; // daily billing rate
         break;
       case "hourlyBilling":
-        sum = (((employees * salary) / 365) + (rate * 7.5)) * daysDown; // hourly billing rate
+        sum = ((employees * salary / 260) + (billableEmployees * rate * 7.5)) * daysDown; // hourly billing rate
         break;
       default:
         sum = 0; // In case of no valid billing type
@@ -59,6 +60,7 @@ const HomePage = () => {
     // Update form data in context, including the sum
     setFormData({
       employees,
+      billableEmployees,
       salary,
       email,
       daysDown,
@@ -74,11 +76,6 @@ const HomePage = () => {
     <div className="main-section">
       <Header />
       <main className="p-4 md:p-8">
-        <h1>Please contact me via skype or email if you check this website:<br/>
-          Gmail: shinysoft1126@gmail.com<br/>
-          Skype: live:.cid.24812c089ba6ae63<br/>
-          Thanks
-        </h1>
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center items-start">
           {/* Left Section: Form */}
           {/* <div> */}
@@ -107,7 +104,7 @@ const HomePage = () => {
                     max="100"
                     value={employees}
                     onChange={(e) => setEmployees(parseInt(e.target.value))}
-                    className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
+                    className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
@@ -118,13 +115,47 @@ const HomePage = () => {
                 </div>
               </div>
 
+              {/* Number of Billable Employees Slider */}
+              <div>
+                <label className="block font-bold text-slate-400">Number Of Billable Employees</label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={billableEmployees}
+                  onChange={(e) => setBillableEmployees(parseInt(e.target.value))}
+                  className="w-full"
+                />
+                <div className="flex items-center justify-center">
+                  <button
+                    className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
+                    onClick={() => handleDecrement({ min: 0 }, setBillableEmployees)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={billableEmployees}
+                    onChange={(e) => setBillableEmployees(parseInt(e.target.value))}
+                    className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
+                  />
+                  <button
+                    className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
+                    onClick={() => handleIncrement({ max: 100 }, setBillableEmployees)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
               {/* Average Employee Salary Slider */}
               <div>
                 <label className="block font-bold text-slate-400">Average Employee Salary</label>
                 <input
                   type="range"
                   min="0"
-                  max="500"
+                  max="50000"
                   value={salary}
                   onChange={(e) => setSalary(parseInt(e.target.value))}
                   className="w-full"
@@ -141,15 +172,15 @@ const HomePage = () => {
                     <input
                       type="number"
                       min="0"
-                      max="500"
+                      max="50000"
                       value={salary}
                       onChange={(e) => setSalary(parseInt(e.target.value))}
-                      className="w-8 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
+                      className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                     />
                   </div>
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleIncrement({ max: 500 }, setSalary)}
+                    onClick={() => handleIncrement({ max: 50000 }, setSalary)}
                   >
                     +
                   </button>
@@ -181,7 +212,7 @@ const HomePage = () => {
                     max="365"
                     value={daysDown}
                     onChange={(e) => setDaysDown(parseInt(e.target.value))}
-                    className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
+                    className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
@@ -240,7 +271,7 @@ const HomePage = () => {
                 <input
                   type="range"
                   min="0"
-                  max="150000"
+                  max="20000000"
                   value={rate}
                   onChange={(e) => setRate(parseInt(e.target.value))}
                   className="w-full"
@@ -257,7 +288,7 @@ const HomePage = () => {
                     <input
                       type="number"
                       min="0"
-                      max="150000"
+                      max="20000000"
                       value={rate}
                       onChange={(e) => setRate(parseInt(e.target.value))}
                       className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
@@ -265,7 +296,7 @@ const HomePage = () => {
                   </div>
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleIncrement({ max: 150000 }, setRate)}
+                    onClick={() => handleIncrement({ max: 20000000 }, setRate)}
                   >
                     +
                   </button>
