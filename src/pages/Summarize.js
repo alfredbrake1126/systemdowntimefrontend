@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from "../components/Header";
 import { FormContext } from "../context/FormContext";
@@ -14,7 +14,6 @@ const Summarize = () => {
     style: 'currency',
     currency: 'GBP'
   }).format(salary);
-  const email = formData.email;
   const daysDown = formData.daysDown;
   const billingType = formData.billingType;
   let revenueTitle = "";
@@ -37,17 +36,8 @@ const Summarize = () => {
   }).format(sum);
 
   const handleSubmit = async () => {
-    if (email === "") {
-      toast.error("Please start from first page.", {
-        position: "top-center",
-        autoClose: 3000,
-        onClose: () => navigate("/"), // Navigate to home after the toast closes
-      });
-      return;
-    }
-
     try {
-      const response = await fetch('https://systemdowntimebackend.vercel.app/api/save-data', {
+      const response = await fetch('http://localhost/api/save-data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

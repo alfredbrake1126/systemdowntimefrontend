@@ -7,7 +7,6 @@ export const FormProvider = ({ children }) => { // This is the provider that wra
   const [formData, setFormData] = useState({
     employees: 35,
     salary: 106,
-    email: "",
     daysDown: 40,
     billingType: "annualRevenue",
     rate: 40,

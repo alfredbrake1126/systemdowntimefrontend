@@ -14,8 +14,6 @@ const HomePage = () => {
   const [daysDown, setDaysDown] = useState(40);
   const [billingType, setBillingType] = useState("annualRevenue");
   const [rate, setRate] = useState(40);
-  const [email, setEmail] = useState(""); // State for email
-  const [emailError, setEmailError] = useState(""); // State for email error
   // Function to handle increment and decrement
   const handleIncrement = (value, setter, step = 1) => {
     setter((prev) => Math.min(prev + step, value.max));
@@ -25,20 +23,7 @@ const HomePage = () => {
     setter((prev) => Math.max(prev - step, value.min));
   };
 
-  // Email validation function
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple regex for email validation
-    return re.test(String(email).toLowerCase());
-  };
-
-  const handleCalculate = () => {
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
-      return;
-    } else {
-      setEmailError(""); // Clear error if email is valid
-    }
-  
+  const handleCalculate = () => { 
     let sum = 0; // Initialize sum variable for the calculation
   
     // Calculate based on selected billing type
@@ -62,7 +47,6 @@ const HomePage = () => {
       employees,
       billableEmployees,
       salary,
-      email,
       daysDown,
       billingType,
       rate,
@@ -102,8 +86,15 @@ const HomePage = () => {
                     type="number"
                     min="0"
                     max="100"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={employees}
-                    onChange={(e) => setEmployees(parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (value >= 0 && value <= 100) { // Ensure value is within min (0) and max (100)
+                        setEmployees(value);
+                      }
+                    }}
                     className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
@@ -137,8 +128,15 @@ const HomePage = () => {
                     type="number"
                     min="0"
                     max="100"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={billableEmployees}
-                    onChange={(e) => setBillableEmployees(parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (value >= 0 && value <= 100) { // Ensure value is within min (0) and max (100)
+                        setBillableEmployees(value);
+                      }
+                    }}
                     className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
@@ -173,8 +171,15 @@ const HomePage = () => {
                       type="number"
                       min="0"
                       max="50000"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       value={salary}
-                      onChange={(e) => setSalary(parseInt(e.target.value))}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        if (value >= 0 && value <= 50000) { // Ensure value is within min (0) and max (100)
+                          setSalary(value);
+                        }
+                      }}
                       className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                     />
                   </div>
@@ -210,8 +215,15 @@ const HomePage = () => {
                     type="number"
                     min="0"
                     max="365"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={daysDown}
-                    onChange={(e) => setDaysDown(parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (value >= 0 && value <= 365) { // Ensure value is within min (0) and max (100)
+                        setDaysDown(value);
+                      }
+                    }}
                     className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
@@ -289,8 +301,15 @@ const HomePage = () => {
                       type="number"
                       min="0"
                       max="20000000"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       value={rate}
-                      onChange={(e) => setRate(parseInt(e.target.value))}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        if (value >= 0 && value <= 20000000) { // Ensure value is within min (0) and max (100)
+                          setRate(value);
+                        }
+                      }}
                       className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                     />
                   </div>
@@ -301,24 +320,6 @@ const HomePage = () => {
                     +
                   </button>
                 </div>
-              </div>
-
-              {/* Email Input */}
-              <div>
-                <label className="block font-bold">Email</label>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleCalculate(); // Call handleCalculate when Enter is pressed
-                    }
-                  }}
-                  className={`w-full p-3 border rounded ${emailError ? "border-red-500" : ""}`}
-                />
-                {emailError && <p className="text-red-500">{emailError}</p>} {/* Display error message */}
               </div>
 
               {/* Calculate Button */}
