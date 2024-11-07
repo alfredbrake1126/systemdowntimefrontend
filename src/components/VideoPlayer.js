@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const VideoPlayer = ({ src, title, autoPlay, onVideoEnd }) => {
   const videoRef = useRef(null);
 
+  // Function to handle full-screen mode
   const handleFullScreen = () => {
     if (videoRef.current.requestFullscreen) {
       videoRef.current.requestFullscreen();
@@ -14,6 +15,22 @@ const VideoPlayer = ({ src, title, autoPlay, onVideoEnd }) => {
       videoRef.current.msRequestFullscreen();
     }
   };
+
+  // Automatically enter full-screen mode when video is loaded
+  useEffect(() => {
+    const videoElement = videoRef.current;
+
+    const onLoadedData = () => {
+      handleFullScreen();
+    };
+
+    videoElement.addEventListener('loadeddata', onLoadedData);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      videoElement.removeEventListener('loadeddata', onLoadedData);
+    };
+  }, []);
 
   return (
     <div className="video-player">
@@ -28,7 +45,6 @@ const VideoPlayer = ({ src, title, autoPlay, onVideoEnd }) => {
           <source src={src} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <button onClick={handleFullScreen}>Full Screen</button>
       </div>
     </div>
   );

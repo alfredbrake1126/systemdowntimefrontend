@@ -54,6 +54,7 @@ const Summarize = () => {
       }
     } catch (error) {
       console.error('Error submitting data:', error);
+      navigate("/player2");
     }
   };
 
