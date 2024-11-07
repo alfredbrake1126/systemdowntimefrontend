@@ -66,7 +66,7 @@ const Summarize = () => {
           <div className="mt-6 text-pink-600 text-6xl font-bold">
             {formattedSum}
           </div>
-          <p className="mt-2 text-gray-500">(That's £5,345.00 Per Day!)</p>
+          {/* <p className="mt-2 text-gray-500">(That's £5,345.00 Per Day!)</p> */}
 
           <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="bg-gray-100 p-6 text-center rounded-md">
