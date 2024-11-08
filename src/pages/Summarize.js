@@ -72,19 +72,19 @@ const Summarize = () => {
           <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-gray-100 p-6 text-center rounded-md">
               <p className="text-gray-500">Total Employee</p>
-              <p className="text-3xl font-bold">{employees}</p>
+              <p className="text-3xl lg:text-xl font-bold">{employees}</p>
             </div>
             <div className="bg-green-100 p-6 text-center rounded-md">
               <p className="text-gray-500">Avg Paid/Year</p>
-              <p className="text-3xl font-bold">{formattedSalary}</p>
+              <p className="text-3xl lg:text-xl font-bold">{formattedSalary}</p>
             </div>
             <div className="bg-gray-100 p-6 text-center rounded-md">
               <p className="text-gray-500">{revenueTitle}</p>
-              <p className="text-3xl font-bold">{formattedRate}</p>
+              <p className="text-3xl lg:text-xl font-bold">{formattedRate}</p>
             </div>
             <div className="bg-green-100 p-6 text-center rounded-md">
               <p className="text-gray-500">Down Days</p>
-              <p className="text-3xl font-bold">{daysDown}</p>
+              <p className="text-3xl lg:text-xl font-bold">{daysDown}</p>
             </div>
           </div>
 
