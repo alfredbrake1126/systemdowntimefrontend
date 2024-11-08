@@ -91,6 +91,7 @@ const HomePage = () => {
                   <input
                     type="text"
                     value={formatWithCommas(employees)}
+                    inputMode="numeric"
                     onChange={(e) => {
                       const rawValue = e.target.value.replace(/,/g, '');
                       const value = parseInt(rawValue);                   
@@ -132,6 +133,7 @@ const HomePage = () => {
                   <input
                     type="text"
                     value={formatWithCommas(billableEmployees)}
+                    inputMode="numeric"
                     onChange={(e) => {
                       const rawValue = e.target.value.replace(/,/g, '');
                       const value = parseInt(rawValue);                   
@@ -174,6 +176,7 @@ const HomePage = () => {
                     <input
                       type="text"
                       value={formatWithCommas(salary)}
+                      inputMode="numeric"
                       onChange={(e) => {
                         const rawValue = e.target.value.replace(/,/g, '');
                         const value = parseInt(rawValue);                   
@@ -217,6 +220,7 @@ const HomePage = () => {
                   <input
                     type="text"
                     value={formatWithCommas(daysDown)}
+                    inputMode="numeric"
                     onChange={(e) => {
                       const rawValue = e.target.value.replace(/,/g, '');
                       const value = parseInt(rawValue);                   
@@ -302,6 +306,7 @@ const HomePage = () => {
                     <input
                       type="text"
                       value={formatWithCommas(rate)}
+                      inputMode="numeric"
                       onChange={(e) => {
                         const rawValue = e.target.value.replace(/,/g, '');
                         const value = parseInt(rawValue);                   
