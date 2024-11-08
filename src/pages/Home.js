@@ -23,6 +23,11 @@ const HomePage = () => {
     setter((prev) => Math.max(prev - step, value.min));
   };
 
+  // Format numbers with commas
+  const formatWithCommas = (value) => {
+    return new Intl.NumberFormat().format(value);
+  };
+
   const handleCalculate = () => { 
     let sum = 0; // Initialize sum variable for the calculation
   
@@ -70,7 +75,7 @@ const HomePage = () => {
                 <input
                   type="range"
                   min="0"
-                  max="100"
+                  max="250"
                   value={employees}
                   onChange={(e) => setEmployees(parseInt(e.target.value))}
                   className="w-full"
@@ -83,23 +88,22 @@ const HomePage = () => {
                     -
                   </button>
                   <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    value={employees}
+                    type="text"
+                    value={formatWithCommas(employees)}
                     onChange={(e) => {
-                      const value = parseInt(e.target.value);
-                      if (value >= 0 && value <= 100) { // Ensure value is within min (0) and max (100)
+                      const rawValue = e.target.value.replace(/,/g, '');
+                      const value = parseInt(rawValue);                   
+                      if (value >= 0 && value <= 250) {
                         setEmployees(value);
+                      } else if (isNaN(value)) {
+                        setEmployees(0); 
                       }
                     }}
                     className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleIncrement({ max: 100 }, setEmployees)}
+                    onClick={() => handleIncrement({ max: 250 }, setEmployees)}
                   >
                     +
                   </button>
@@ -112,7 +116,7 @@ const HomePage = () => {
                 <input
                   type="range"
                   min="0"
-                  max="100"
+                  max="250"
                   value={billableEmployees}
                   onChange={(e) => setBillableEmployees(parseInt(e.target.value))}
                   className="w-full"
@@ -125,23 +129,22 @@ const HomePage = () => {
                     -
                   </button>
                   <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    value={billableEmployees}
+                    type="text"
+                    value={formatWithCommas(billableEmployees)}
                     onChange={(e) => {
-                      const value = parseInt(e.target.value);
-                      if (value >= 0 && value <= 100) { // Ensure value is within min (0) and max (100)
+                      const rawValue = e.target.value.replace(/,/g, '');
+                      const value = parseInt(rawValue);                   
+                      if (value >= 0 && value <= 250) {
                         setBillableEmployees(value);
+                      } else if (isNaN(value)) {
+                        setBillableEmployees(0); 
                       }
                     }}
                     className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleIncrement({ max: 100 }, setBillableEmployees)}
+                    onClick={() => handleIncrement({ max: 250 }, setBillableEmployees)}
                   >
                     +
                   </button>
@@ -152,8 +155,8 @@ const HomePage = () => {
                 <label className="block font-bold text-slate-400">Average Employee Salary</label>
                 <input
                   type="range"
-                  min="0"
-                  max="50000"
+                  min="1"
+                  max="100000"
                   value={salary}
                   onChange={(e) => setSalary(parseInt(e.target.value))}
                   className="w-full"
@@ -161,31 +164,30 @@ const HomePage = () => {
                 <div className="flex items-center justify-center">
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleDecrement({ min: 0 }, setSalary)}
+                    onClick={() => handleDecrement({ min: 1 }, setSalary)}
                   >
                     -
                   </button>
                   <div className="flex items-center mx-4">
                     <span className="text-pink-600 font-bold">£</span>
                     <input
-                      type="number"
-                      min="0"
-                      max="50000"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      value={salary}
+                      type="text"
+                      value={formatWithCommas(salary)}
                       onChange={(e) => {
-                        const value = parseInt(e.target.value);
-                        if (value >= 0 && value <= 50000) { // Ensure value is within min (0) and max (100)
-                          setSalary(value);
+                        const rawValue = e.target.value.replace(/,/g, '');
+                        const value = parseInt(rawValue);                   
+                        if (value >= 1 && value <= 100000) {
+                            setSalary(value);
+                        } else if (isNaN(value)) {
+                            setSalary(1); 
                         }
                       }}
-                      className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
+                      className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                     />
                   </div>
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleIncrement({ max: 50000 }, setSalary)}
+                    onClick={() => handleIncrement({ max: 100000 }, setSalary)}
                   >
                     +
                   </button>
@@ -198,8 +200,8 @@ const HomePage = () => {
                 <label className="block font-bold text-slate-400">Number Of Days Down</label>
                 <input
                   type="range"
-                  min="0"
-                  max="365"
+                  min="1"
+                  max="90"
                   value={daysDown}
                   onChange={(e) => setDaysDown(parseInt(e.target.value))}
                   className="w-full"
@@ -207,28 +209,27 @@ const HomePage = () => {
                 <div className="flex items-center justify-center">
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleDecrement({ min: 0 }, setDaysDown)}
+                    onClick={() => handleDecrement({ min: 1 }, setDaysDown)}
                   >
                     -
                   </button>
                   <input
-                    type="number"
-                    min="0"
-                    max="365"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    value={daysDown}
+                    type="text"
+                    value={formatWithCommas(daysDown)}
                     onChange={(e) => {
-                      const value = parseInt(e.target.value);
-                      if (value >= 0 && value <= 365) { // Ensure value is within min (0) and max (100)
+                      const rawValue = e.target.value.replace(/,/g, '');
+                      const value = parseInt(rawValue);                   
+                      if (value >= 1 && value <= 90) {
                         setDaysDown(value);
+                      } else if (isNaN(value)) {
+                        setDaysDown(1);
                       }
                     }}
                     className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                   />
                   <button
                     className="px-3 py-1 bg-transparent h-10 w-10 border border-gray-300 shadow-md rounded-full"
-                    onClick={() => handleIncrement({ max: 365 }, setDaysDown)}
+                    onClick={() => handleIncrement({ max: 90 }, setDaysDown)}
                   >
                     +
                   </button>
@@ -298,19 +299,18 @@ const HomePage = () => {
                   <div className="flex items-center mx-4">
                     <span className="text-pink-600 font-bold">£</span>
                     <input
-                      type="number"
-                      min="0"
-                      max="20000000"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      value={rate}
+                      type="text"
+                      value={formatWithCommas(rate)}
                       onChange={(e) => {
-                        const value = parseInt(e.target.value);
-                        if (value >= 0 && value <= 20000000) { // Ensure value is within min (0) and max (100)
+                        const rawValue = e.target.value.replace(/,/g, '');
+                        const value = parseInt(rawValue);                   
+                        if (value >= 0 && value <= 20000000) {
                           setRate(value);
+                        } else if (isNaN(value)) {
+                          setRate(0);
                         }
                       }}
-                      className="w-16 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
+                      className="w-24 text-center text-pink-600 font-bold bg-transparent focus:outline-none"
                     />
                   </div>
                   <button

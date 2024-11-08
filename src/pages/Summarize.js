@@ -89,7 +89,7 @@ const Summarize = () => {
           </div>
 
           <button
-            className="mt-8 px-6 py-3 border-2 border-pink-500 text-black hover:bg-pink-500 hover:text-white rounded-md font-semibold uppercase w-[28rem] text-lg tracking-wide"
+            className="mt-8 px-6 py-3 border-2 border-pink-500 text-black hover:bg-pink-500 hover:text-white rounded-md font-semibold uppercase w-[16rem] text-lg tracking-wide"
             onClick={handleSubmit}
           >
             What Have I Won?
