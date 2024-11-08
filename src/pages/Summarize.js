@@ -69,7 +69,7 @@ const Summarize = () => {
           </div>
           {/* <p className="mt-2 text-gray-500">(That's £5,345.00 Per Day!)</p> */}
 
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-gray-100 p-6 text-center rounded-md">
               <p className="text-gray-500">Total Employee</p>
               <p className="text-3xl font-bold">{employees}</p>
