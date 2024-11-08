@@ -1,10 +1,30 @@
-import React, { } from "react";
+import React, { useContext, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Header from "../components/Header";
+import 'react-toastify/dist/ReactToastify.css';
 import coffee from "../assets/coffee.jpg";
+import { FormContext } from "../context/FormContext";
 
 const Final = () => {
+  const { formData } = useContext(FormContext);
   const navigate = useNavigate(); // Initialize useNavigate
+  
+  useEffect(() => {
+    if (!formData.status) {
+      toast.error("Oops! It looks like your input data was lost. Please start again from the beginning.", {
+        autoClose: 3000,
+        position: "top-right",
+        closeOnClick: false,
+        pauseOnHover: false,
+        closeButton: false
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [formData.status, navigate]);
+
   const handleSubmit = () => {
     // Navigate to player1.js after the calculation
     navigate("/"); // Adjust the path according to your routing setup
@@ -28,6 +48,7 @@ const Final = () => {
           </button>
         </div>
       </main>
+      <ToastContainer />
     </div>
   );
 };

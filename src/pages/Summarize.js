@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from "../components/Header";
 import { FormContext } from "../context/FormContext";
@@ -8,6 +8,22 @@ import { FormContext } from "../context/FormContext";
 const Summarize = () => {
   const { formData } = useContext(FormContext);
   const navigate = useNavigate();
+  // Check formData.status on page load
+  useEffect(() => {
+    if (!formData.status) {
+      toast.error("Oops! It looks like your input data was lost. Please start again from the beginning.", {
+        autoClose: 3000,
+        position: "top-right",
+        closeOnClick: false,
+        pauseOnHover: false,
+        closeButton: false
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [formData.status, navigate]);
+
   const employees = formData.employees;
   const salary = formData.salary;
   const formattedSalary = new Intl.NumberFormat('en-GB', {

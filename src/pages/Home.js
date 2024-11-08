@@ -46,7 +46,7 @@ const HomePage = () => {
         sum = 0; // In case of no valid billing type
         break;
     }
-  
+    let status = true;
     // Update form data in context, including the sum
     setFormData({
       employees,
@@ -56,6 +56,7 @@ const HomePage = () => {
       billingType,
       rate,
       sum, // Store the calculated sum
+      status
     });
     // Navigate to player1.js after the calculation
     navigate("/player1"); // Adjust the path according to your routing setup

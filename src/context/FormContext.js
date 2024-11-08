@@ -10,7 +10,8 @@ export const FormProvider = ({ children }) => { // This is the provider that wra
     daysDown: 40,
     billingType: "annualRevenue",
     rate: 40,
-    sum: 0
+    sum: 0,
+    status: false
   });
 
   return (
